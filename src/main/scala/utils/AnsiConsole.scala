@@ -1,4 +1,4 @@
-package chapters.core
+package utils
 
 import scala.io.AnsiColor._
 

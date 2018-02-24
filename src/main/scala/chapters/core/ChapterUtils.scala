@@ -1,5 +1,7 @@
 package chapters.core
 
+import utils.{AnsiConsole, FileUtils}
+
 object ChapterUtils extends AnsiConsole {
 
 	import scala.io.AnsiColor._

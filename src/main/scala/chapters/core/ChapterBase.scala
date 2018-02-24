@@ -2,6 +2,8 @@ package chapters.core
 
 import scala.io.AnsiColor
 
+import utils.AnsiConsole
+
 
 /**
   * ChapterBase class pretends encapsulate some generic functions for the application
