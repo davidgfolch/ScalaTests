@@ -2,10 +2,11 @@ package utils
 
 import scala.io.AnsiColor._
 import scala.io.StdIn
+import scala.util.Try
 
 class AnsiConsole {
 
-	def printColor(color: String, str: String) = Console.out.println(color + str + RESET)
+	val ansiCodePattern: String = "\\u001b\\[[0-9]{1,2}[m]"
 
 	def info(str: String) = printColor(GREEN, str)
 
@@ -13,6 +14,7 @@ class AnsiConsole {
 
 	def error(str: String) = printColor(RED, str)
 
+	def printColor(color: String, str: String) = Console.out.println(color + str + RESET)
 
 	/**
 	  * Pretyfies a code example
@@ -73,31 +75,19 @@ class AnsiConsole {
 		str
 	}
 
-	val ansiCodePattern: String = "\\u001b\\[[0-9]{1,2}[m]"
-
-	//	def readNumber: Byte = {
-	//		try {
-	//			return StdIn.readByte()
-	//		} catch {
-	//			case nfe: NumberFormatException => println(nfe)
-	//			//				case ioe: EOFException => println(nfe)
-	//		}
-	//		-1
-	//	}
-
 }
 
 object AnsiConsole {
 
-	def readNumber:Byte = {
-		var res:Byte = -1
-		try {
-			res=StdIn.readByte()
-		} catch {
+	def readNumber: Int = {
+		Try.apply {
+			val input=StdIn.readLine()
+			return if ("" equals input) -2 else input.toInt
+		}.recover {
 			case nfe: NumberFormatException => println(nfe)
 			//				case ioe: EOFException => println(nfe)
 		}
-		res
+		-1
 	}
 
 }

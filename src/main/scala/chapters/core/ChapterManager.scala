@@ -1,55 +1,65 @@
 package chapters.core
 
 import scala.io.AnsiColor._
+import scala.util.Try
 
 import utils.AnsiConsole
 
-class ChapterManager(basePath:String) extends AnsiConsole {
+class ChapterManager() extends AnsiConsole {
 
+	val chapterUtils = new ChapterUtils()
 	var printMenu: Boolean = true
-	val chapterUtils = new ChapterUtils(basePath)
+	var lastChapter:Int = 0
+
 
 	def run(): Unit = {
-		println(s"base path: $basePath")
-		var chapter: Byte = -1
 		do {
 			printMenuNow
-			chapter = AnsiConsole.readNumber
-			chapter match {
-				//				case 1 => new Chapter001_Basics
-				//				case 2 => Chapter002_TypeHierarchy
-				//				case 3 => Chapter003_Classes
-				case 0 => println("Bye!")
-				case -1 => invalidOption
-				case _ => {
-					try {
-						val clzName=chapterUtils.classNameFromNumber(chapter)
-						Class.forName(clzName).newInstance()  //executes selected chapter class
-					} catch {
-						case e: Exception =>
-							println(e)
-							invalidOption
-					}
+			AnsiConsole.readNumber match {
+				case 0 => {
+					println("Bye!")
+					return
 				}
+				case -1 => invalidOption
+				case -2 => executeNextChapter
+				case chapter => executeChapter(chapter)
 			}
-		} while (chapter != 0)
+		} while (true)
 	}
 
-	def printMenuNow = {
-		if (printMenu) {
-			println()
-			printColor(YELLOW,"================")
-			printColor(YELLOW,"==  MAIN MENU ==")
-			printColor(YELLOW,"================")
-			chapterUtils.printChapters()
+	def nextChapter: Int = {
+		lastChapter += 1
+		lastChapter
+	}
+	def executeNextChapter = executeChapter(nextChapter)
+
+	def executeChapter(chapter: Int) = {
+		lastChapter=chapter
+		val clzName = chapterUtils.classNameFromNumber(chapter)
+		Try.apply {
+			Class.forName(clzName).newInstance() //executes selected chapter class
+		}.recover {
+			case e: Exception =>
+				println(e)
+				invalidOption
 		}
-		printColor(YELLOW,"Choose chapter (0 exit):")
-		printMenu = true
 	}
 
 	def invalidOption = {
 		printMenu = false
 		println("Please choose a valid chapter number")
+	}
+
+	def printMenuNow = {
+		if (printMenu) {
+			println()
+			println(YELLOW + "================")
+			printColor(YELLOW, "==  MAIN MENU ==")
+			printColor(YELLOW, "================")
+			chapterUtils.printChapters()
+		}
+		printColor(YELLOW, "Choose chapter 1..999 (0->exit, Enter->next chapter):")
+		printMenu = true
 	}
 }
 

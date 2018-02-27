@@ -9,5 +9,5 @@ package objects
 case class Point(x: Int, y: Int)
 
 object Point {
-	val sourceCode="package objects\n\n/**\n  * Inmutable case class\n  *\n  * @param x\n  * @param y\n  */\ncase class PointV3(x: Int, y: Int)"
+	val sourceCode = "package objects\n\n/**\n  * Inmutable case class\n  *\n  * @param x\n  * @param y\n  */\ncase class PointV3(x: Int, y: Int)"
 }

@@ -3,9 +3,9 @@ package chapters.core
 import org.reflections.Reflections
 import scala.io.AnsiColor._
 
-import utils.{AnsiConsole, FileUtils}
+import utils.AnsiConsole
 
-class ChapterUtils(basePath: String) extends AnsiConsole {
+class ChapterUtils() extends AnsiConsole {
 
 	val reflections = new Reflections("chapters")
 	val chapters: Array[String] = reflections.getSubTypesOf(classOf[ChapterBase]).toArray()
@@ -13,7 +13,6 @@ class ChapterUtils(basePath: String) extends AnsiConsole {
 		.sorted
 
 	def printChapters() {
-		FileUtils.getListOfFiles(basePath + "/chapters").foreach(println)
 		chapters.foreach(a =>
 			printColor(RED, a.replaceAll("(?i)(.*\\.)?chapter(\\d++).*", "$2").toInt + ".- " +
 				a.replaceAll("(?i)(.*\\.)?chapter\\d++_([a-z]+).*", "$2")

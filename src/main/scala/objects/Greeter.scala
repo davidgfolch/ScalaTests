@@ -13,7 +13,7 @@ class Greeter(prefix: String, suffix: String) {
 }
 
 object Greeter {
-	def sourceCode="class Greeter(prefix: String, suffix: String) {\n\tdef greet(name: String): Unit =\n\t\tprintln(prefix + name + suffix)\n}"
+	def sourceCode = "class Greeter(prefix: String, suffix: String) {\n\tdef greet(name: String): Unit =\n\t\tprintln(prefix + name + suffix)\n}"
 }
 
 

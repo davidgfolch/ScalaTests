@@ -4,30 +4,27 @@ import scala.io.AnsiColor
 
 import utils.AnsiConsole
 
-
 /**
   * ChapterBase class pretends encapsulate some generic functions for the application
   * This is a first example for constructors
   */
-//class ChapterBase(claz: AnyVal) {
+abstract class ChapterBase(title:String, url:String) extends AnsiConsole {
 
-//trait ChapterBase[T] { self:T =>
-//	//abstract method
-//	def parent: T
+	def childClass:String
 
-trait ChapterBase extends AnsiConsole {
+	printTitle(title, url)
 
 	def printTitle(title: String, url: String): Unit = {
-		val TITLE = "~~~ Tour of Scala -- " + title + " -- " + this + " ~~~"
+		val TITLE = "~~~ Tour of Scala -- " + title + " -- " + childClass.replaceAll("chapters\\.","") + " ~~~"
 		val HEAD_LINE = TITLE.replaceAll(".", "~")
-		printColor(AnsiColor.RED,"")
+		printColor(AnsiColor.RED, "")
 		println(HEAD_LINE)
 		println(HEAD_LINE)
 		println(TITLE)
 		println(HEAD_LINE)
 		println(HEAD_LINE)
 		println(url)
-		printColor(AnsiColor.RESET,"")
+		println(AnsiColor.RESET)
 	}
 
 	def printSubtitle(s: String, wait: Boolean) = {
@@ -45,4 +42,5 @@ trait ChapterBase extends AnsiConsole {
 	def equal(eqPoint1: AnyRef, diffPoint: AnyRef) = (if (eqPoint1 == diffPoint) "the same" else "different")
 
 }
+
 
