@@ -1,14 +1,9 @@
 package chapters
 
-import scala.collection.mutable.TreeMap
+import chapters.core.ChapterBase
+import objects.ScalaTypeHierarchy
 
-import core.ChapterBase
-import objects.{Branch, Leaf, ScalaTypeHierarchy}
-
-/**
-  * This was a class originally
-  */
-object Chapter002_TypeHierarchy extends ChapterBase {
+class Chapter002_TypeHierarchy extends ChapterBase {
 
 	printTitle("Unified Types", "https://docs.scala-lang.org/tour/unified-types.html")
 

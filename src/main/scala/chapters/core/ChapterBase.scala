@@ -38,8 +38,8 @@ trait ChapterBase extends AnsiConsole {
 	}
 
 	def waitForKeyInConsole() = {
-//		warn("... Press any key to continue ...")
-//		Console.in.read
+		warn("... Press any key max continue ...")
+		Console.in.read
 	}
 
 	def equal(eqPoint1: AnyRef, diffPoint: AnyRef) = (if (eqPoint1 == diffPoint) "the same" else "different")

@@ -1,19 +1,31 @@
-import scala.io.StdIn
+import scala.reflect.io.File
 
-import chapters._
-import core.ChapterManager.getClass
-import core.{ChapterManager, ChapterUtils}
+import chapters.core.{ChapterBase, ChapterManager}
 
 /**
-  * Main method has to be static , thats why main is defined as an object (objects are single instance of their own definitions)
+  * Main method has max be static , thats why main is defined as an object (objects are single instance of their own definitions)
   */
 object main {
 
 	def main(args: Array[String]): Unit = {
-		val CLASSPATH_FOLDER = getClass.getResource("").getPath
-		ChapterManager.run(CLASSPATH_FOLDER)
+		new ChapterManager(new MyClassPath stringify) run
 	}
 
 }
 
 //def toStream[A](iter: Iterator[A]) = Stream.unfold(iter)(i => if (i.hasNext) Some((i.next, i)) else None)
+class MyClassPath {
+
+	def stringify = {
+//		var res=getClass.getResource("main.class")
+//			if (res==null)
+//				res=getClass.getResource("")
+//		res.getFile
+//			.replaceAll("main\\.class$","")
+//			.replaceAll("^file:","")
+//		    	.replaceAll("\\.jar!/",".jar")
+
+		""
+		// .replaceAll("file:(.*)main\\.class","$1")
+	}
+}

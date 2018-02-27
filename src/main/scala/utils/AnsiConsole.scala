@@ -1,6 +1,7 @@
 package utils
 
 import scala.io.AnsiColor._
+import scala.io.StdIn
 
 class AnsiConsole {
 
@@ -31,13 +32,14 @@ class AnsiConsole {
 			.replaceAll("/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/", GREEN + "$0" + RESET) //multiline coments
 			.split("\n")
 			.map(codeLine => {
-				val spaces = new String(new Array[Char](maxLen - codeLine.length))
+				val size = if (codeLine.length > maxLen) 0 else maxLen - codeLine.length
+				val spaces = new String(new Array[Char](size))
 					.replaceAll(".", " ")
 				"|" +
-				codeColors(codeLine) +
-				spaces //+"|"
+					codeColors(codeLine) +
+					spaces //+"|"
 			})
-			.foreach(Console.out.println) //printColor(RESET, a))
+			.foreach(println) //printColor(RESET, a))
 		printColor(RESET, horizontalBorder)
 	}
 
@@ -46,7 +48,7 @@ class AnsiConsole {
 			//variables, objects names
 			.replaceAll("(?i)(new|object|trait|class|def|val|var) (\\w+)", "$1 " + YELLOW + "$2" + RESET)
 			//keywords
-			.replaceAll("(?i)(object|package|extends|with|new|true|false|override|class|case class|def|private|val|var) ", MAGENTA + "$1 " + RESET)
+			.replaceAll("(?i)(import|object|package|extends|with|new|true|false|override|trait|class|case class|def|private|val|var) ", MAGENTA + "$1 " + RESET)
 			//types
 			.replaceAll("(?i)(\\b)(Any|AnyVal|AnyRef|String|Double|Float|Long|Int|Short|Byte|Boolean|Char|List|Option|Null)(\\b)", "$1" + GREEN + "$2" + RESET + "$3")
 			//strings
@@ -56,11 +58,12 @@ class AnsiConsole {
 			//inlinecomments
 			.replaceAll("//.*", CYAN + "$0" + RESET)
 		//clean colors inside -> inline comments
-		str=replaceRecursive(str, "(.*//.*)" + ansiCodePattern + "(.*)", "$1$2", 0)
+		str = replaceRecursive(str, "(.*//.*)" + ansiCodePattern + "(.*)", "$1$2", 0)
 		//clean colors inside -> strings ""
-		str=replaceRecursive(str, "(.*\".*)"+ ansiCodePattern + "(.*\".*)", "$1$2" , 0)
-		//clean colors inside -> strings ''
-		str=replaceRecursive(str, "(.*'.*)"+ ansiCodePattern + "(.*'.*)", "$1$2" , 0)
+		str = replaceRecursive(str, "(.*\".*)" + ansiCodePattern + "(.*\".*)", "$1$2", 0)
+		//clean colors inside -> multiline comments
+		str = replaceRecursive(str, s"(.*/\\*\\*.*)$ansiCodePattern(.*)", "$1$2", 0)
+		str = replaceRecursive(str, s"(.*\\*.*)$ansiCodePattern(.*)", GREEN + "$1$2", 1)
 		str
 	}
 
@@ -72,4 +75,32 @@ class AnsiConsole {
 
 	val ansiCodePattern: String = "\\u001b\\[[0-9]{1,2}[m]"
 
+	//	def readNumber: Byte = {
+	//		try {
+	//			return StdIn.readByte()
+	//		} catch {
+	//			case nfe: NumberFormatException => println(nfe)
+	//			//				case ioe: EOFException => println(nfe)
+	//		}
+	//		-1
+	//	}
+
 }
+
+object AnsiConsole {
+
+	def readNumber:Byte = {
+		var res:Byte = -1
+		try {
+			res=StdIn.readByte()
+		} catch {
+			case nfe: NumberFormatException => println(nfe)
+			//				case ioe: EOFException => println(nfe)
+		}
+		res
+	}
+
+}
+
+
+

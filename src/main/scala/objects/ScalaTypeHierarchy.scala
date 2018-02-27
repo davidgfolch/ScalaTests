@@ -14,17 +14,17 @@ case class Branch[A](left: ScalaTypeHierarchy[A], right: ScalaTypeHierarchy[A]) 
 
 object ScalaTypeHierarchy {
 
-	def any = Leaf("Any")
+	private def any = Leaf("Any")
 
-	def anyVal = Leaf("AnyVal")
+	private def anyVal = Leaf("AnyVal")
 
-	def anyRef = Leaf("AnyRef")
+	private def anyRef = Leaf("AnyRef")
 
-	def nullBranch = Branch(Leaf("Null"), nothing)
+	private def nullBranch = Branch(Leaf("Null"), nothing)
 
-	def nothing = Leaf("Nothing")
+	private def nothing = Leaf("Nothing")
 
-	def branches: Array[ScalaTypeHierarchy[String]] = Array(
+	private def branches: Array[ScalaTypeHierarchy[String]] = Array(
 		//anyVal
 		Branch(any, Branch(anyVal, Branch(Leaf("Double"), nothing))),
 		Branch(any, Branch(anyVal, Branch(Leaf("Float"), nothing))),
@@ -42,6 +42,6 @@ object ScalaTypeHierarchy {
 	)
 
 	override def toString: String = super.toString + "\n" +
-		this.any.stringify + "\n" +
-		this.branches.map(a => a.stringify).mkString("\n")
+		any.stringify + "\n" +
+		branches.map(_.stringify).mkString("\n")
 }

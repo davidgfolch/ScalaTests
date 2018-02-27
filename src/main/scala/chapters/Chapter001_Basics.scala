@@ -3,10 +3,7 @@ package chapters
 import core.ChapterBase
 import objects.{Greeter, IdFactory, Point}
 
-/**
-  * This was a class originally
-  */
-object Chapter001_Basics extends ChapterBase {
+class Chapter001_Basics extends ChapterBase {
 
 	printTitle("Basics", "https://docs.scala-lang.org/tour/basics.html")
 
@@ -63,7 +60,7 @@ object Chapter001_Basics extends ChapterBase {
 
 	//====================================================================================
 	printSubtitle("Methods", true)
-	codeExample("\t\tdef addMethod(x: Int, y: Int): Int = x + y\n\t\tprintln(\"addMethod = \" + addMethod(1, 2)) // 3\n\n\t\tdef addThenMultiply(x: Int, y: Int)(multiplier: Int): Int = (x + y) * multiplier\n\t\tprintln(s\"addThenMultiply = ${addThenMultiply(1, 2)(3)}\") // 9\n\n\t\tdef name: String = System.getProperty(\"user.name\")\n\t\tprintln(s\"no param method, $name !\")\n\n\t\tdef getSquareString(input: Double): String = {\n\t\t\tval square = input * input\n\t\t\tsquare.toString\n\t\t}\n\t\tprintln(\"multiline method getSquareString, \" + getSquareString(5))")
+	codeExample("\t\tdef addMethod(x: Int, y: Int): Int = x + y\n\t\tprintln(\"addMethod = \" + addMethod(1, 2)) // 3\n\n\t\tdef addThenMultiply(x: Int, y: Int)(multiplier: Int): Int = (x + y) * multiplier\n\t\tprintln(s\"addThenMultiply = ${addThenMultiply(1, 2)(3)}\") // 9\n\n\t\tdef name: String = System.getProperty(\"user.name\")\n\t\tprintln(s\"no param method, $name !\")\n\n\t\tdef getSquareString(input: Double): String = {\n\t\t\tval square = input * input\n\t\t\tsquare.stringify\n\t\t}\n\t\tprintln(\"multiline method getSquareString, \" + getSquareString(5))")
 
 	//====================================================================================
 	def addMethod(x: Int, y: Int): Int = x + y
@@ -95,14 +92,14 @@ object Chapter001_Basics extends ChapterBase {
 
 	//====================================================================================
 	printSubtitle("Case Classes (inmutable)", true)
-	codeExample("\t\tval eqPoint1 = Point(1, 2)\n\t\tval eqPoint2 = Point(1, 2)\n\t\tval diffPoint = Point(2, 2)\n\t\tprintln(s\"$eqPoint1 and $eqPoint2 are the same\" + equal(eqPoint1, eqPoint2)) // Point(1,2) and Point(1,2) are the same.\n\t\tprintln(s\"$eqPoint1 and $diffPoint are \" + equal(eqPoint1, diffPoint)) // Point(1,2) and Point(2,2) are different.")
+	codeExample("\t\tval eqPoint1 = PointV3(1, 2)\n\t\tval eqPoint2 = PointV3(1, 2)\n\t\tval diffPoint = PointV3(2, 2)\n\t\tprintln(s\"$eqPoint1 and $eqPoint2 are the same\" + equal(eqPoint1, eqPoint2)) // PointV3(1,2) and PointV3(1,2) are the same.\n\t\tprintln(s\"$eqPoint1 and $diffPoint are \" + equal(eqPoint1, diffPoint)) // PointV3(1,2) and PointV3(2,2) are different.")
 	codeExample(Point.sourceCode)
 	//====================================================================================
 	val eqPoint1 = Point(1, 2)
 	val eqPoint2 = Point(1, 2)
 	val diffPoint = Point(2, 2)
-	println(s"$eqPoint1 and $eqPoint2 are the same" + equal(eqPoint1, eqPoint2)) // Point(1,2) and Point(1,2) are the same.
-	println(s"$eqPoint1 and $diffPoint are " + equal(eqPoint1, diffPoint)) // Point(1,2) and Point(2,2) are different.
+	println(s"$eqPoint1 and $eqPoint2 are the same" + equal(eqPoint1, eqPoint2)) // PointV3(1,2) and PointV3(1,2) are the same.
+	println(s"$eqPoint1 and $diffPoint are " + equal(eqPoint1, diffPoint)) // PointV3(1,2) and PointV3(2,2) are different.
 
 	printSubtitle("Object (single instances)", true)
 	codeExample(IdFactory.codeSource)
