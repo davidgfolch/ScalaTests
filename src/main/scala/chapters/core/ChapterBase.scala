@@ -1,6 +1,7 @@
 package chapters.core
 
-import scala.io.AnsiColor
+import scala.Int
+import scala.io.{AnsiColor, StdIn}
 
 import utils.AnsiConsole
 
@@ -27,16 +28,25 @@ abstract class ChapterBase(title:String, url:String) extends AnsiConsole {
 		println(AnsiColor.RESET)
 	}
 
-	def printSubtitle(s: String, wait: Boolean) = {
-		if (wait) waitForKeyInConsole
+	var exitChapter = false
+
+	def printSubtitle(s: String, wait: Boolean):Boolean = {
+		if (exitChapter) return false
+		if (wait) {
+			exitChapter=(!waitForKeyInConsole==true)
+			if (exitChapter) return false
+		}
 		info("")
 		info("\\  " + s)
 		info("···" + s.replaceAll(".", "·"))
+		true
 	}
 
-	def waitForKeyInConsole() = {
-		warn("... Press any key max continue ...")
-		Console.in.read
+	def waitForKeyInConsole():Boolean = {
+		warn("... Press enter to continue or go back to (m)enu...")
+		val command = StdIn.readLine()
+		if ("m".equals(command)) return false
+		true
 	}
 
 	def equal(eqPoint1: AnyRef, diffPoint: AnyRef) = (if (eqPoint1 == diffPoint) "the same" else "different")
