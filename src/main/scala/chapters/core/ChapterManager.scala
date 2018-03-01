@@ -3,8 +3,6 @@ package chapters.core
 import scala.io.AnsiColor._
 import scala.util.Try
 
-import utils.AnsiConsole
-
 class ChapterManager() extends AnsiConsole {
 
 	val chapterUtils = new ChapterUtils()

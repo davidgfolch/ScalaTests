@@ -3,8 +3,6 @@ package chapters.core
 import org.reflections.Reflections
 import scala.io.AnsiColor._
 
-import utils.AnsiConsole
-
 class ChapterUtils() extends AnsiConsole {
 
 	val reflections = new Reflections("chapters")

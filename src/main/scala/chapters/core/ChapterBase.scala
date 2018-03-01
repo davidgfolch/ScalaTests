@@ -3,8 +3,6 @@ package chapters.core
 import scala.Int
 import scala.io.{AnsiColor, StdIn}
 
-import utils.AnsiConsole
-
 /**
   * ChapterBase class pretends encapsulate some generic functions for the application
   * This is a first example for constructors

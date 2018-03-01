@@ -6,7 +6,7 @@ import objects.{Greeter, IdFactory, Point}
 class Chapter001_Basics
 	extends ChapterBase("Basics","https://docs.scala-lang.org/tour/basics.html") {
 
-	override def childClass: String = getClass.getName
+	override def childClass = getClass.getName
 
 	if (printSubtitle("You can output results of expressions using println", false)) {
 		codeExample("\t\tprintln(1) // 1\n\t\tprintln(1 + 1) // 2\n\t\tprintln(\"Hello!\") // Hello!\n\t\tprintln(\"Hello,\" + \" world!\") // Hello, world!")
